@@ -12,10 +12,10 @@ Let your client see their work in progress.
 
 == Description ==
 
-**[Demo](demo.zanematthew.com/client-access/)**
-
 Have you had to make a working project publicly accessible for your client, yet still have to keep
 the site "private" to the general public?
+
+**[Demo](demo.zanematthew.com/client-access/)**
 
 Normally you'll quickly hack in an allowed IP list, server-side password (htpasswd), etc. Why hack this in? With Client Access you can take the professional approach. Use a WordPress plugin to allow specific IPs, or those with the universal password the ability to access the work in progress.
 
@@ -51,11 +51,10 @@ Anyone that visits the website while this is enabled will see the default messag
 * Provide a universal password
 * Set an expire time
 
-= General =
-Simply put, allow logged in administrators!
+= Allow By Role =
+Allow by role of choice.
 
-* Allows for front end of website to be inaccessible
-* Only logged in administrators are allowed access
+* Choose any registered role
 
 == Installation ==
 
