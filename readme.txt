@@ -15,13 +15,19 @@ Let your client see their work in progress.
 Have you had to make a working project publicly accessible for your client, yet still have to keep
 the site "private" to the general public?
 
-**[Demo](demo.zanematthew.com/client-access/)**
+**[Demo](http://demo.zanematthew.com/client-access/)**
 
 Normally you'll quickly hack in an allowed IP list, server-side password (htpasswd), etc. Why hack this in? With Client Access you can take the professional approach. Use a WordPress plugin to allow specific IPs, or those with the universal password the ability to access the work in progress.
 
 = Allow by IP =
 
 Once enabled via the settings tab, you can add a list of IPs to the textarea. These IP addresses are the *only* IP addresses that are allowed. Additionally you can add a comment per IP to better detail each entry.
+
+* Provide a list of IPs that are allowed
+* Comments are allowed for IPs
+* Display a content message
+* Display a footer message
+* All IPs are validated against the latest IP protocols
 
 Example:
 `
@@ -35,14 +41,6 @@ Example:
 123.456.789
 `
 
-Allow by IP allows for:
-
-* Provide a list of IPs that are allowed
-* Comments are allowed for IPs
-* Display a content message
-* Display a footer message
-* All IPs are validated against the latest IP protocols
-
 = Allow by Universal Password =
 Once enabled via the settings tab, you can create a universal password that is *shared* with all users. No user name is required.
 
@@ -50,11 +48,15 @@ Anyone that visits the website while this is enabled will see the default messag
 
 * Provide a universal password
 * Set an expire time
+* Display a content message
+* Display a footer message
 
 = Allow By Role =
 Allow by role of choice.
 
 * Choose any registered role
+* Display a content message
+* Display a footer message
 
 == Installation ==
 
@@ -71,22 +73,26 @@ Allow by role of choice.
 == Frequently Asked Questions ==
 
 = Does this plugin block the WordPress admin and login pages? =
-No, visitors can still access the /wp-login.php page and login.
+No. Visitors can still access the /wp-login.php page and login.
 
 = Does this plugin make specific content private? =
-No, this plugin makes your *entire* site private, i.e., posts, pages, etc.
+No. This plugin makes your *entire* site private, i.e., posts, pages, etc.
 
 = Does this plugin make assets private? =
-No, images, stylesheets, text files, etc. are still accessible if a user knows the direct URL.
+No. Images, stylesheets, text files, etc. are still accessible if a user knows the direct URL.
 
 = Does the universal password need a user name? =
 No.
 
 = Does "Allow by IP" support IP ranges? =
-No, it is scheduled for a later release.
+No. It is scheduled for a later release.
 
 = How do I reset the universal password? =
 From the settings page, enter the new password and click "save"
+
+= Can I use all (allow by IP, Role, Password) at the same time? =
+Yes! You can use any combination.
+
 
 == Screenshots ==
 
