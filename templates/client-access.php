@@ -12,7 +12,9 @@
     </main>
 
     <footer class="client-access-footer">
-        <?php do_action( 'client_access_footer_content' ); ?>
+        <ul>
+            <?php do_action( 'client_access_footer_content' ); ?>
+        </ul>
     </footer>
 
     <?php wp_footer(); ?>

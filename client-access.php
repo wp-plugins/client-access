@@ -4,7 +4,7 @@
  * Plugin Name: Client Access
  * Plugin URI: http://zanematthew.com/products/client-access/
  * Description: Let your client see their work in progress.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Zane Matthew Kolnik
  * Author URI: http://zanematthew.com
  * Author Email: support@zanematthew.com
@@ -14,14 +14,14 @@
 define( 'CLIENT_ACCESS_URL', plugin_dir_url( __FILE__ ) );
 define( 'CLIENT_ACCESS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CLIENT_ACCESS_NAMESPACE', 'client_access' );
-define( 'CLIENT_ACCESS_VERSION', '1.0.0' );
+define( 'CLIENT_ACCESS_VERSION', '1.0.1' );
 define( 'CLIENT_ACCESS_PLUGIN_FILE', __FILE__ );
 define( 'CLIENT_ACCESS_PRODUCT_NAME', 'Client Access' ); // Must match download title in EDD store!
 define( 'CLIENT_ACCESS_AUTHOR', 'Zane Matthew' );
 
 require CLIENT_ACCESS_PATH . 'lib/lumber/lumber.php';
 require CLIENT_ACCESS_PATH . 'lib/quilt/quilt.php';
-require CLIENT_ACCESS_PATH . 'lib/zm-welcome/zm-welcome.php';
+require CLIENT_ACCESS_PATH . 'lib/zm-welcome/Bienvenue.php';
 
 require CLIENT_ACCESS_PATH . 'settings.php';
 
@@ -52,13 +52,14 @@ function client_access_init(){
     }
 
 
+    global $client_access_is_allowed;
     if ( ! empty( $client_access_settings['client_access_enabled'] ) ){
-        $access_granted = false;
+        $client_access_is_allowed = false;
     } else {
-        $access_granted = apply_filters( 'client_access_access_granted', true );
+        $client_access_is_allowed = apply_filters( 'client_access_access_granted', true );
     }
 
-    if ( ! $access_granted ){
+    if ( ! $client_access_is_allowed ){
 
         // Remove un-needed scripts/meta from the wp head
         add_filter( 'show_recent_comments_widget_style', '__return_null' );
@@ -74,6 +75,15 @@ function client_access_init(){
 
 }
 add_action( 'init', 'client_access_init' );
+
+
+function client_access_admin_init(){
+
+    do_action( 'client_access_admin_init' );
+
+}
+add_action( 'admin_init', 'client_access_admin_init' );
+
 
 
 /**
@@ -157,17 +167,19 @@ function client_access_plugins_loaded(){
 
     load_plugin_textdomain( CLIENT_ACCESS_NAMESPACE, false, plugin_basename(dirname(__FILE__)) . '/languages' );
 
-    $welcome_pages = new ZMWelcome(
+    $welcome_pages = new Bienvenue(
 
     // Our Tabs
     array(
         'about-client-access' => array(
             'page_title' => 'Getting Started'
+        ),
+        'whats-new-client-access' => array(
+            'page_title' => 'Whats New?'
+        ),
+        'update-client-access' => array(
+            'page_title' => 'Changelog'
         )
-        // ,
-        // 'update-client-access' => array(
-        //     'page_title' => 'Updates'
-        // )
     ),
 
     // Paths and dir
@@ -180,12 +192,33 @@ function client_access_plugins_loaded(){
     array(
         'slug' => CLIENT_ACCESS_NAMESPACE,
         'current_version' => CLIENT_ACCESS_VERSION,
-        // 'previous_version' => get_option( CLIENT_ACCESS_NAMESPACE . '_version_upgraded_from'),
+        'previous_version' => get_option( CLIENT_ACCESS_NAMESPACE . '_version_upgraded_from'),
         'text_domain' => CLIENT_ACCESS_NAMESPACE,
         'start_slug' => 'about-client-access',
-        // 'update_slug' => 'update-client-access',
+        'update_slug' => 'whats-new-client-access',
         'name' => CLIENT_ACCESS_PRODUCT_NAME
     ) );
 
 }
 add_action( 'plugins_loaded', 'client_access_plugins_loaded' );
+
+
+/**
+ * Add our links to the plugin page, these show under the plugin in the table view.
+ *
+ * @param $links(array) The links coming in as an array
+ * @param $current_plugin_file(string) This is the "plugin basename", i.e., my-plugin/plugin.php
+ */
+function client_access_plugin_action_links( $links, $current_plugin_file ){
+
+    // Plugin Table campaign URL
+    $campaign_text_link = 'http://store.zanematthew.com/downloads/tag/client-access-add-ons/?utm_source=WordPress&utm_medium=Plugin%20Table&utm_campaign=Client%20Access%20Add-ons';
+
+    if ( $current_plugin_file == 'client-access/client-access.php' ){
+        $links['client_access_settings'] = '<a href="' . admin_url( 'options-general.php?page=' . CLIENT_ACCESS_NAMESPACE ) . '">' . esc_attr__( 'Settings', CLIENT_ACCESS_NAMESPACE ) . '</a>';
+        $links['client_access_addons'] = sprintf('<a href="%2$s" title="%1$s" target="_blank">%1$s</a>', esc_attr__('Add-ons', CLIENT_ACCESS_NAMESPACE ), $campaign_text_link );
+    }
+
+    return $links;
+}
+add_filter( 'plugin_action_links', 'client_access_plugin_action_links', 10, 2 );

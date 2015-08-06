@@ -3,7 +3,7 @@ Contributors: ZaneMatthew
 Donate link: http://zanematthew.com/
 Tags: administration, authentication, registration, responsive
 Requires at least: 4.2.2
-Tested up to: 4.2.2
+Tested up to: 4.2.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -67,7 +67,7 @@ Allow by role of choice.
 1. Click Install Now to install the WordPress Plugin
 
 = Manual =
-1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
+1. Upload the `client-access` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
@@ -102,6 +102,16 @@ Yes! You can use any combination.
 1. Front-end showing all options set
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Updated POT file with correct text domain and new strings
+* Fixing missing strings in translations
+* Minor styling updates to the footer, and links
+* Added additional hooks
+* Site name tag now links to the home URL
+* Global for is allowed
+* Welcome CSS is only loaded on welcome page
 
 = 1.0 =
 * Initial release

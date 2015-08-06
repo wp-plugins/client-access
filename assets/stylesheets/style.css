@@ -57,8 +57,29 @@ body.client-access-body p {
     margin: 0;
     }
 
-.client-access-body footer a {
-    margin-right: 10px;
+.client-access-body footer ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    }
+
+.client-access-body footer ul li {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    }
+
+.client-access-body footer ul li:first-child:before {
+    display: none;
+    }
+
+.client-access-body footer ul li:before {
+    content: '\007C';
+    margin: 0 10px;
+    }
+
+.client-access-body footer li a {
+    color: #000;
     }
 
 .client-access-body main,
@@ -130,8 +151,12 @@ body.client-access-body p {
     }
 
 .client-access-body a {
-    color: #888;
+    color: #398439;
     text-decoration: none;
+    }
+
+.client-access-body a:hover {
+    color: rgba(57, 132, 57, 0.67);
     }
 
 .client-access-body h1,

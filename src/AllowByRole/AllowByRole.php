@@ -176,7 +176,7 @@ Class AllowByRole {
             '{site_name}' => get_bloginfo( 'name' )
         ) );
 
-        echo $content . ' ';
+        echo '<li>' . $content . '</li>';
 
     }
 

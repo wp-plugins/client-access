@@ -33,12 +33,15 @@ add_filter( 'quilt_' . CLIENT_ACCESS_NAMESPACE . '_menu_title', 'client_access_s
 
 
 function client_access_settings_footer_content( $content ){
+    $settings_campaign_url = 'http://store.zanematthew.com/downloads/tag/client-access-add-ons/?utm_source=WordPress&utm_medium=Settings%20Footer&utm_campaign=Client%20Access%20Add-ons';
 
-    return sprintf( '%s | v%s | <a href="%s" target="_blank">%s</a>',
+    return sprintf( '%s | v%s | <a href="%s" target="_blank">%s</a> | <a href="%s" target="_blank">%s</a>',
         __( 'Thank you for using Client Access', CLIENT_ACCESS_NAMESPACE ),
         CLIENT_ACCESS_VERSION,
         esc_url( 'http://support.zanematthew.com/forum/client-access/'),
-        __( 'Support', CLIENT_ACCESS_NAMESPACE )
+        __( 'Support', CLIENT_ACCESS_NAMESPACE ),
+        esc_url( $settings_campaign_url ),
+        __( 'Add-ons', CLIENT_ACCESS_NAMESPACE )
         );
 
 }

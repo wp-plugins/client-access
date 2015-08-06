@@ -34,6 +34,11 @@
     clear: both;
     }
 
+.about-wrap ul {
+    list-style-type: circle;
+    list-style-position: inside;
+    }
+
 .welcome-badge img {
     float: right;
     max-width: 15%;
@@ -71,3 +76,6 @@
 .col1 img {
     }
 
+.add-ons img {
+    border: 1px solid #ccc;
+    }

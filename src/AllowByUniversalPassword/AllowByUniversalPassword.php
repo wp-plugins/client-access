@@ -353,7 +353,7 @@ Class AllowByUniversalPassword {
         global $client_access_settings;
 
         $content = client_access_template_tags( $client_access_settings[ $this->prefix . '_default_message'], array(
-            '{site_name}' => get_bloginfo( 'name' )
+            '{site_name}' => '<a href="' . home_url() . '">' . get_bloginfo( 'name' ) . '</a>'
         ) ); ?>
         <p><?php echo $content; ?></p>
         <form method="POST" action="#" id="<?php echo $this->prefix; ?>_form" class="<?php echo $this->prefix; ?>_form">
@@ -379,10 +379,10 @@ Class AllowByUniversalPassword {
         global $client_access_settings;
 
         $content = client_access_template_tags( $client_access_settings[ $this->prefix . '_footer_message'], array(
-            '{site_name}' => get_bloginfo( 'name' )
+            '{site_name}' => '<a href="' . home_url() . '">' . get_bloginfo( 'name' ) . '</a>'
         ) );
 
-        echo $content . ' ';
+        echo '<li>' . $content . '</li>';
 
     }
 

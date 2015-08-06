@@ -11,7 +11,7 @@
  * @note Each slug is translated to the a template file, i.e., $slug = 'about-page', is found in
  * $dir_path . 'about-page.php'
  *
- * $welcome_pages = new ZMWelcome(
+ * $welcome_pages = new Bienvenue(
  *
  *    // Our Tabs
  *    array(
@@ -42,9 +42,9 @@
  *    ) );
  */
 
-if ( ! class_exists( 'ZMWelcome' ) ) :
+if ( ! class_exists( 'Bienvenue' ) ) :
 
-class ZMWelcome {
+class Bienvenue {
 
 
     public $minimum_capability = 'manage_options';
@@ -62,6 +62,8 @@ class ZMWelcome {
         $this->dir_path = $paths['dir_path'];
         $this->dir_url = trailingslashit( $paths['dir_url'] );
         $this->previous_version = empty( $plugin_info['previous_version'] ) ? null : $plugin_info['previous_version'];
+
+        $this->slug = $plugin_info['slug'];
         $this->current_version = $plugin_info['current_version'];
         $this->plugin_text_domain = $plugin_info['text_domain'];
         $this->activation_redirect = '_' . $plugin_info['slug'] . '_activation_redirect';
@@ -85,8 +87,13 @@ class ZMWelcome {
      */
     public function display_tabs( $admin_pages=null, $selected=null ){ ?>
         <h2 class="nav-tab-wrapper">
-            <?php foreach( $admin_pages as $slug => $pages ) : ?>
-                <a class="nav-tab <?php echo $selected == $slug ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => $slug ), 'index.php' ) ) ); ?>"><?php _e( $this->pages[ $slug ]['page_title'], $this->plugin_text_domain ); ?></a>
+            <?php foreach( $admin_pages as $slug => $pages ) :
+                $url = esc_url( admin_url( add_query_arg( array(
+                    'page' => $slug,
+                    'slug' => $this->slug
+                ), 'index.php' ) ) );
+                ?>
+                <a class="nav-tab <?php echo $selected == $slug ? 'nav-tab-active' : ''; ?>" href="<?php echo $url; ?>"><?php _e( $this->pages[ $slug ]['page_title'], $this->plugin_text_domain ); ?></a>
             <?php endforeach; ?>
         </h2>
         <?php
@@ -176,16 +183,31 @@ class ZMWelcome {
         }
 
         if( ! $this->previous_version ){ // First time install
-            wp_safe_redirect( admin_url( 'index.php?page=' . $this->start_slug ) ); exit;
+
+            // admin_url( add_query_arg( array(
+            //         'page' => $slug,
+            //         'slug' => $this->slug
+            //     ), 'index.php' ) )
+
+            wp_safe_redirect( admin_url( add_query_arg( array(
+                'page' => $this->start_slug,
+                'slug' => $this->slug
+                ), 'index.php' ) ) ); exit;
         } else { // Update
-            wp_safe_redirect( admin_url( 'index.php?page=' . $this->update_slug ) ); exit;
+            wp_safe_redirect( admin_url( add_query_arg( array(
+                'page' => $this->update_slug,
+                'slug' => $this->slug
+                ), 'index.php' ) ) ); exit;
         }
 
     }
 
 
     public function admin_scripts(){
-        wp_enqueue_style( 'zm-welcome-admin', $this->dir_url . 'assets/stylesheets/welcome.css' );
+
+        if ( isset( $_GET['slug'] ) && $this->slug == $_GET['slug'] ){
+            wp_enqueue_style( 'beinvenue-admin', $this->dir_url . 'assets/stylesheets/welcome.css' );
+        }
     }
 
 

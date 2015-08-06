@@ -188,9 +188,11 @@ Class AllowByIp {
 
         global $client_access_settings;
 
-        echo client_access_template_tags( $client_access_settings[ $this->prefix . '_footer_message'], array(
+        $content = client_access_template_tags( $client_access_settings[ $this->prefix . '_footer_message'], array(
             '{ip_address}' => $_SERVER['REMOTE_ADDR']
         ) );
+
+        echo '<li>' . $content . '</li>';
 
     }
 
